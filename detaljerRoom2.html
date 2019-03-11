@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Obligatorisk opgave - ishotel</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html">Tilbage til oversigt</a>
+            </nav>
+        </header>
+        <h1>Tempetatur oversigt</h1>
+        <div id="wrapper">
+                <div id="grafContainer">
+                    <div id="rumGraf"></div>
+                        <select name="tidsOversigt" onchange="loadDoc(this.value)">
+                            <option>Vælg tidsrum</option>
+                            <option value="1 HOUR">Seneste time</option>
+                            <option value="1 DAY">Seneste dag</option>
+                            <option value="1 WEEK">Seneste uge</option>
+                        </select>
+                    </div>
+                <svg id="termometer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443.96 1619.91">
+                          <title>termometer</title>
+                          <g id="mount">
+                            <path id="glas" class="glasBeholder" d="M526.5,1865.13c0,39.11-30.44,70.81-68,70.81s-68-31.7-68-70.81c0-25.78,13.22-48.34,33-60.71V362.48c0-20.13,15.67-36.45,35-36.45s35,16.32,35,36.45V1804.42C513.28,1816.79,526.5,1839.35,526.5,1865.13Z" transform="translate(-87.54 -321.03)"/>
+                          </g>
+                          <g id="measurer">
+                            <path id="red_line" class="blaaFill" d="M477.94,1817.1V440.6c0-19.11-8.57-26.1-19.44-26.1s-19.94,7-19.94,26.1V1816.94C451.69,1815.81,464.81,1818.14,477.94,1817.1Z" transform="translate(-87.54 -321.03)"/>
+                            <path id="bund" class="blaaFill" d="M477.94,1817.63v-.53c-13.13,1-26.25-1.29-39.38-.16v1.69c-11.12,11.75-28.56,24.16-28.56,48.64,0,37.13,27.37,48.23,48.5,48.23s47-11.1,47-48.23C505.5,1842.79,489.06,1829.38,477.94,1817.63Z" transform="translate(-87.54 -321.03)"/>
+                            <ellipse id="hightligt" class="highlight" cx="435" cy="1854.5" rx="16.5" ry="12" transform="translate(-1509.12 1107.47) rotate(-63.88)"/>
+                          </g>
+                          <g id="TilpadsKoldtGruppe">
+                            <g id="parameter">
+                              <line class="lineStroke" x1="175.95" y1="905.97" x2="175.95" y2="703.97"/>
+                              <line class="lineStroke" x1="173.46" y1="708.97" x2="252.46" y2="708.97"/>
+                              <line class="lineStroke" x1="173.46" y1="900.97" x2="252.46" y2="900.97"/>
+                            </g>
+                            <text class="tilpasTekst" transform="translate(132.01 689.64)">KOLDT<tspan x="0" y="240"> </tspan><tspan x="-57.6" y="-24">TILPAS</tspan></text>
+                          </g>
+                          <g id="parameter-2" data-name="parameter">
+                            <line class="lineStroke" x1="175.95" y1="685.97" x2="175.95" y2="3.97"/>
+                            <line class="lineStroke" x1="173.46" y1="8.85" x2="252.46" y2="8.85"/>
+                            <line class="lineStroke" x1="173.46" y1="681.09" x2="252.46" y2="681.09"/>
+                          </g>
+                          <g id="parameter-3" data-name="parameter">
+                            <line class="lineStroke" x1="175.95" y1="1495.97" x2="175.95" y2="920.97"/>
+                            <line class="lineStroke" x1="173.46" y1="925.08" x2="252.46" y2="925.08"/>
+                            <line class="lineStroke" x1="173.46" y1="1491.85" x2="252.46" y2="1491.85"/>
+                          </g>
+                          <text class="koldTekst" transform="translate(124.4 1115.37)">KOLDT<tspan x="0" y="240"> </tspan><tspan x="-57.6" y="48">FOR</tspan></text>
+                          <text class="ikkeTekst" transform="translate(139.2 272.61)">NOK<tspan x="-57.6" y="-48">KOLDT</tspan><tspan x="-57.6" y="192" xml:space="preserve">  </tspan><tspan x="-115.2" y="-24">IKKE</tspan></text>
+                        </svg>
+        </div>
+        <script>
+            /*JSON array*/
+            function loadDoc(str){
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function(){
+                    if (this.readyState == 4 && this.status == 200){
+                        let myObj = JSON.parse(this.responseText);
+                        visGraf(myObj);
+                    }
+                };
+                xhttp.open("POST", "grafData.php?s=lufttemperatur&sys=IdaErin&obs=" +str , true);
+                xhttp.send();
+            }
+            
+            /*Plotly graf*/
+            function visGraf(inputData){
+                let xArray = [];
+                let yArray = [];
+            
+                for(i in inputData){
+                    xArray.push(inputData[i].nobstime)
+                    yArray.push(inputData[i].nvalue)
+                }
+                
+                let data = [{
+                    x: xArray,
+                    y: yArray,
+                    type:'line',
+                    name: 'Celsius',
+                }];
+                var layout = {
+                title: 'Temperatur forløb', 
+                yaxis: {title: 'Celsius'},  
+                overlaying: 'y', 
+                side: 'right'
+                }
+                
+                Plotly.newPlot('rumGraf', data, layout, {}, {showSendToCloud:true});
+            }
+            /*AJAX*/
+            loadDoc();
+            setInterval(loadDoc, 1000)
+        </script>
+    </body>
+</html>

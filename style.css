@@ -1,0 +1,103 @@
+/*Floorplan SVG*/
+.roomFill {
+    fill: white;
+    stroke-width: 3px;
+}
+
+.roomFill, .hallBorder {
+    stroke: #1d71b8;
+}
+
+.roomFill, .statusGood, .statusProblem, .statusAlert, .cls-6 {
+    stroke-miterlimit: 10;
+}
+
+.roomText {
+    font-size: 12px;
+    fill: #1d1d1b;
+    font-family: MyriadPro-Regular, Myriad Pro;
+}
+
+.statusGood2 .circleRoom2,.statusGood4 .circleRoom4,.statusGood6 .circleRoom6,.statusGood8 .circleRoom8,.statusGood10 .circleRoom10,.statusGood12 .circleRoom12,.statusGood14 .circleRoom14,.statusGood1 .circleRoom1,.statusGood3 .circleRoom3,.statusGood5 .circleRoom5,.statusGood7 .circleRoom7,.statusGood9 .circleRoom9,.statusGood11 .circleRoom11,.statusGood13 .circleRoom13,.statusGoodHall .circleRoomHall {
+    fill: #009640;
+}
+
+.statusProblem2 .circleRoom2,.statusProblem4 .circleRoom4,.statusProblem6 .circleRoom6,.statusProblem8 .circleRoom8,.statusProblem10 .circleRoom10,.statusProblem12 .circleRoom12,.statusProblem14 .circleRoom14,.statusProblem1 .circleRoom1,.statusProblem3 .circleRoom3,.statusProblem5 .circleRoom5,.statusProblem7 .circleRoom7,.statusProblem9 .circleRoom9,.statusProblem11 .circleRoom11,.statusProblem13 .circleRoom13,.statusProblemHall .circleRoomHall {
+    fill: #f9b233;
+}
+
+.statusAlert2 .circleRoom2,.statusAlert4 .circleRoom4,.statusAlert6 .circleRoom6,.statusAlert .circleRoom8,.statusAlert .circleRoom10,.statusAlert .circleRoom12,.statusAlert .circleRoom14,.statusAlert .circleRoom1,.statusAlert .circleRoom3,.statusAlert .circleRoom5,.statusAlert .circleRoom7,.statusAlert .circleRoom9,.statusAlert .circleRoom11,.statusAlert .circleRoom13,.statusAlert .circleRoomHall {
+    fill: #e6332a;
+}
+
+.statusGood, .statusProblem, .statusAlert {
+    stroke: #1d1d1b;
+    stroke-width: 0.5px;
+}
+
+.doorFill {
+    fill: #fff;
+    stroke-width: 0px;
+}
+/*generelt styling*/
+#wrapper {
+    padding: 2px 16px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+        "termometer graf";
+    
+}
+select {
+    height: 50px;
+    width: 120px;
+    margin: auto;
+}
+#termometer {
+    grid-area: termometer;
+    height: 94%;
+    margin-left: 30%;
+    padding-top: 15px;
+}
+#grafContainer {
+    grid-area: graf;
+    width: 100%;
+    height: 100%;
+}
+
+/*Temperatur måler */
+.glasBeholder {
+    fill: #83a4b7;
+    stroke: #557282;
+    opacity: 0.76;
+}
+
+.glasBeholder, .lineStroke {
+    stroke-miterlimit: 10;
+    stroke-width: 10px;
+}
+.blaaFill, .lineStroke, .tilpasTekst {
+    fill: #0071bc;
+}
+.highlight {
+    fill: #fff;
+}
+.lineStroke {
+    stroke: #000;
+}
+.tilpasTekst, .koldTekst, .ikkeTekst {
+    writing-mode: tb;
+    text-orientation: upright;
+    glyph-orientation-vertical: 0deg;
+    font-size: 48px;
+    font-family: FranklinGothic-DemiCond, Franklin Gothic Demi Cond;
+    font-weight: 300;
+}
+
+.koldTekst {
+    fill: #2e3192;
+}
+.ikkeTekst {
+    fill: #29abe2;
+}
